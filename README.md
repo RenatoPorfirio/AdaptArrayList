@@ -1,8 +1,6 @@
 # AdaptArrayList
 Implementação própria de uma lista versátil baseada em Array **(ainda em desenvolvimento)**.
 
-#### ⚠️OBS: *Os métodos* `insert` *e* `remove` *ainda não foram implementados!!*
-
 <details><summary><h2>Descrição</h2></summary>
   
 A classe `AdaptArrayList` possui a opção de operar tanto em modo dinâmico quanto estático, o que pode trazer benefícios em diferentes cenários, dependendo dos requisitos do programa. Vamos explicar como funciona a troca entre esses modos e seus benefícios:
