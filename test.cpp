@@ -44,4 +44,18 @@ l.push("melancia")
   cout << "Após preencher com a string \"fruta\":\n[ ";
   l.foreach(print);
   cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl << endl;
+
+  l.remove(3);
+  
+  cout << "Após remover o terceiro item:\n[ ";
+  l.foreach(print);
+  cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl << endl;
+  
+  l.insert("Amora", 2).insert("Mamão", 4);
+
+  cout << "Após inserir itens nas posições 2 e 4:\n[ ";
+  l.foreach(print);
+  cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl << endl;
+  
+  return 0;
 }
