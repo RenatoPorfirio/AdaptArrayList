@@ -182,13 +182,26 @@ AdaptArrayList<T>& AdaptArrayList<T>::push_back(T value){
 
 template <class T>
 AdaptArrayList<T>& AdaptArrayList<T>::insert(T value, size_t index){
-  // Insere um elemento em um índice específico na lista (NÃO IMPLEMENTADO)
+   // Insere um elemento em um índice específico na lista
+  if(!index){
+    return push(value);
+  }
+  assert(index <= length);
+  if(length == max_length){
+    assert(dynamic == true);
+    resize();
+  }
+  for(size_t i = length; i  > index; i--){
+    (*this)[i] = (*this)[i - 1];
+  }
+  (*this)[index] = value;
+  length++;
   return *this;
 }
 
 template <class T>
 T AdaptArrayList<T>::pop(){
-  // Remove e retorna o elemento do início da lista (fila)
+  // Remove e retorna o elemento do início da lista
   if(length == 0){
     return (T)NULL;
   }
@@ -204,8 +217,20 @@ T AdaptArrayList<T>::pop(){
 
 template <class T>
 T AdaptArrayList<T>::remove(size_t index){
-  // Remove e retorna o elemento de um determinado índice (NÃO IMPLEMENTADO)
-  // Esse método está declarado, mas a implementação está faltando.
+  // Remove e retorna o elemento de um determinado índice
+  if(!index){
+    return pop();
+  }
+  assert(index <= length);
+  T x = (*this)[index];
+  for(size_t i = index; i < length - 1; i++){
+    (*this)[i] = (*this)[i + 1];
+  }
+  length--;
+  if(3*length <= max_length && dynamic){
+    resize();
+  }
+  return x;
 }
 
 template <class T>
