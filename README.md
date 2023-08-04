@@ -52,7 +52,7 @@ Durante a execução do programa, é possível alterar o modo da lista criando u
 - **Complexidade:** O(1)
 - **Descrição:** Destrutor que libera a memória alocada para o array interno da lista.
 
-### AdaptArrayList\<T>::resize()
+### AdaptArrayList\<T>::resize() (Privado)
 
 - **Complexidade:** O(length)
 - **Descrição:** Redimensiona o array interno da lista para aumentar seu tamanho conforme necessário.
@@ -111,16 +111,6 @@ Durante a execução do programa, é possível alterar o modo da lista criando u
 
 - **Complexidade:** O(length)
 - **Descrição:** Executa uma função para cada elemento da lista.
-
-### AdaptArrayList\<T>::__hoare(long long i, long long j, bool (*cmp)(T, T))
-
-- **Complexidade:** O(length)
-- **Descrição:** Função auxiliar que realiza o algoritmo de partição de Hoare para quicksort.
-
-### AdaptArrayList\<T>::__quicksort(size_t i, size_t j, bool (*cmp)(T, T))
-
-- **Complexidade:** O(n log n) em média, O(n^2) no pior caso
-- **Descrição:** Função auxiliar que realiza o algoritmo de quicksort recursivamente.
 
 ### AdaptArrayList\<T>::sort()
 
