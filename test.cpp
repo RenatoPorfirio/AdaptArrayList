@@ -46,16 +46,31 @@ l.push("melancia")
   cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl << endl;
 
   l.remove(3);
-  
+
   cout << "Após remover o terceiro item:\n[ ";
   l.foreach(print);
   cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl << endl;
   
-  l.insert("Amora", 2).insert("Mamão", 4);
-
+  l.insert("Amora", 2).insert("mamão", 4);
+  
   cout << "Após inserir itens nas posições 2 e 4:\n[ ";
   l.foreach(print);
   cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl << endl;
+
+  AdaptArrayList<string> l2(l.array_data(), l.size(), l.size());
+
+  cout << "Nova lista criada com base no vetor de dados da lista anterior:\n[ ";
+  l2.foreach(print);
+  cout << "], tam = " << l2.size() << ", tam. máximo = " << l2.max_size() << endl << endl;
+
+  l2.push("acerola");
+  cout << "Situação de erro: como o array da primeira lista agora faz parte da segunda lista, o mesmo será deletado com a operação de resize da segunda lista." << endl << endl;
+  cout << "Após inserir um novo item no inicio da nova lista:\n Nova lista: [ ";
+  l2.foreach(print);
+  cout << "], tam = " << l2.size() << ", tam. máximo = " << l2.max_size() << endl << endl;
+  //cout << "Lista antiga: [ ";
+  //l.foreach(print);
+  //cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl;
   
   return 0;
 }

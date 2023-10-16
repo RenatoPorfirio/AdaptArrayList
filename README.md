@@ -40,10 +40,19 @@ Durante a execução do programa, é possível alterar o modo da lista criando u
 - **Complexidade:** O(1)
 - **Descrição:** Construtor padrão que cria uma lista vazia com tamanho inicial de 1 elemento.
 
-### AdaptArrayList\<T>::AdaptArrayList(size_t size, bool is_dynamic, float resize_factor)
+### AdaptArrayList\<T>::AdaptArrayList(size_t size, bool is_dynamic=true, float resize_factor=1)
 
 - **Complexidade:** O(size)
 - **Descrição:** Construtor que cria uma lista com um tamanho inicial especificado, podendo ser redimensionada dinamicamente ou não.
+
+### AdaptArrayList\<T>::AdaptArrayList(T* c_array, size_t c_array_size, size_t c_array_max_size, bool is_dynamic=true, float resize_factor=1)
+
+- **Complexidade:** O(1)
+- **Descrição:** Construtor que cria uma lista a partir de um array.
+- **OBS:** O array recebido é utilizado como o array base da lista, e isso leva para algumas implicações:
+  1. Se a lista for dinâmica, o array passado como argumento deve ser alocado dinamicamente;
+  2. Qualquer alteração na lista causará alteração direta no array;
+  3. Chamadas de resize farão com que a memória desse mesmo array seja desalocada;
 
 ### AdaptArrayList\<T>::~AdaptArrayList()
 

@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <cstdlib>
+//#include <iostream>
 
 // Função de comparação padrão (comparação de menor) para o tipo T
 template <class T>
@@ -17,9 +18,10 @@ private:
   T* arr;               // Ponteiro para o array de elementos
   size_t length;        // Número atual de elementos na lista
   size_t max_length;    // Tamanho máximo do array
-  size_t ini;           // Índice do elemento inicial na lista (para adaptação)
+  size_t start;         // Índice do elemento inicial na lista (para adaptação)
   bool dynamic;         // Indica se a lista deve ser redimensionada dinamicamente
   float res_factor;     // Fator de redimensionamento para a lista
+  bool uncaps;          // Indica se o método array_data foi chamado. Se verdadeiro, a memória do vetor de dados da lista deve ser desalocada manualmente utilizando delete.
 
   // Função auxiliar que realiza o algoritmo de partição de Hoare para quicksort
   size_t __hoare(long long i, long long j, bool (*cmp)(T, T));
@@ -35,8 +37,11 @@ public:
   // Construtor padrão
   AdaptArrayList();
 
+  // Construtor para inicialização a partir de um array
+  AdaptArrayList(T* c_array, size_t c_array_size, size_t c_array_max_size, bool is_dynamic=true, float resize_factor=1);
+
   // Construtor com tamanho inicial e opções de redimensionamento
-  AdaptArrayList(size_t size, bool is_dynamic=true, float resize_factor=1);
+  AdaptArrayList(size_t max_size, bool is_dynamic=true, float resize_factor=1);
 
   // Destrutor
   ~AdaptArrayList();
@@ -46,6 +51,9 @@ public:
 
   // Retorna o tamanho máximo do array interno
   size_t max_size();
+
+  // Indica se a memória do array de dados será desalocada automaticamente
+  bool self_cleaning();
 
   // Sobrecarga do operador de acesso por índice
   T& operator[](size_t index);
@@ -81,7 +89,7 @@ public:
   void sort(bool (*cmp)(T, T));
 
   // Retorna o ponteiro para o array interno
-  T* data();
+  T* array_data();
 };
 
 // Implementação dos métodos da classe
@@ -92,26 +100,43 @@ AdaptArrayList<T>::AdaptArrayList(){
   arr = new T[1];
   length = 0;
   max_length = 1;
-  ini = 0;
+  start = 0;
   dynamic = true;
   res_factor = 1;
+  uncaps = false;
 }
 
 template <class T>
-AdaptArrayList<T>::AdaptArrayList(size_t size, bool is_dynamic, float resize_factor){
-  // Construtor com tamanho inicial e opções de redimensionamento
-  arr = new T[size];
-  length = 0;
-  max_length = size;
-  ini = 0;
+AdaptArrayList<T>::AdaptArrayList(T* c_array, size_t c_array_size, size_t c_array_max_size, bool is_dynamic, float resize_factor){
+  // Construtor para inicialização a partir de um array
+  assert(c_array_size <= c_array_max_size);
+  arr = c_array;
+  length = c_array_size;
+  max_length = c_array_max_size;
+  this->start = 0;
   dynamic = is_dynamic;
   res_factor = resize_factor;
+  uncaps = false;
+}
+
+template <class T>
+AdaptArrayList<T>::AdaptArrayList(size_t max_size, bool is_dynamic, float resize_factor){
+  // Construtor com tamanho inicial e opções de redimensionamento
+  arr = new T[max_size];
+  length = 0;
+  max_length = max_size;
+  start = 0;
+  dynamic = is_dynamic;
+  res_factor = resize_factor;
+  uncaps = false;
 }
 
 template <class T>
 AdaptArrayList<T>::~AdaptArrayList(){
   // Destrutor
-  delete [] arr;
+  if(!uncaps){
+    delete [] arr;
+  }
 }
 
 template <class T>
@@ -121,11 +146,11 @@ void AdaptArrayList<T>::resize(){
   size_t new_m_len = factor ? factor : 1;
   T* tmp = new T[new_m_len];
   for(size_t i = 0; i < length; i++){
-    tmp[i] = arr[(i+ini) % max_length];
+    tmp[i] = arr[(i+start) % max_length];
   }
   delete [] arr;
   arr = tmp;
-  ini = 0;
+  start = 0;
   max_length = new_m_len;
 }
 
@@ -142,17 +167,22 @@ size_t AdaptArrayList<T>::max_size(){
 }
 
 template <class T>
+bool AdaptArrayList<T>::self_cleaning(){
+  return !uncaps;
+}
+
+template <class T>
 T& AdaptArrayList<T>::operator[](size_t index){
   // Sobrecarga do operador de acesso por índice
   assert(index < max_length);
-  return arr[(ini+index) % max_length];
+  return arr[(start+index) % max_length];
 }
 
 template <class T>
 T AdaptArrayList<T>::get(size_t index){
   // Retorna o valor do elemento em um determinado índice (sem modificar o array interno)
   assert(index < max_length);
-  return arr[(ini+index) % max_length];
+  return arr[(start+index) % max_length];
 }
 
 template <class T>
@@ -162,8 +192,8 @@ AdaptArrayList<T>& AdaptArrayList<T>::push(T value){
     assert(dynamic == true);
     resize();
   }
-  ini = ini == 0 ? max_length-1 : ini-1;
-  arr[ini] = value;
+  start = start == 0 ? max_length-1 : start-1;
+  arr[start] = value;
   length++;
   return *this;
 }
@@ -175,7 +205,7 @@ AdaptArrayList<T>& AdaptArrayList<T>::push_back(T value){
     assert(dynamic == true);
     resize();
   }
-  arr[(ini+length) % max_length] = value;
+  arr[(start+length) % max_length] = value;
   length++;
   return *this;
 }
@@ -205,9 +235,9 @@ T AdaptArrayList<T>::pop(){
   if(length == 0){
     return (T)NULL;
   }
-  T x = arr[ini];
-  ini++;
-  ini = ini % max_length;
+  T x = arr[start];
+  start++;
+  start = start % max_length;
   length--;
   if(3*length <= max_length && dynamic){
     resize();
@@ -246,7 +276,7 @@ template <class T>
 void AdaptArrayList<T>::foreach(void* (*function)(T*)){
   // Executa uma função para cada elemento da lista
   for(size_t i = 0; i < length; i++){
-    function(&arr[(i+ini) % max_length]);
+    function(&arr[(i+start) % max_length]);
   }
 }
 
@@ -290,18 +320,19 @@ void AdaptArrayList<T>::sort(bool (*cmp)(T, T)){
 }
 
 template <class T>
-T* AdaptArrayList<T>::data(){
+T* AdaptArrayList<T>::array_data(){
   // Retorna o ponteiro para o array interno
-  if(!ini){
+  uncaps = true;
+  if(!start){
     return arr;
   }
   T* tmp = new T[max_length];
   for(size_t i = 0; i < length; i++){
-    tmp[i] = arr[(i+ini) % max_length];
+    tmp[i] = arr[(i+start) % max_length];
   }
   delete [] arr;
   arr = tmp;
-  ini = 0;
+  start = 0;
   return arr;
 }
 
