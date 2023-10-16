@@ -79,6 +79,11 @@ Durante a execução do programa, é possível alterar o modo da lista criando u
 - **Complexidade:** O(1)
 - **Descrição:** Sobrecarga do operador de acesso por índice, permite acessar um elemento específico na lista.
 
+### bool AdaptArrayList\<T>::self_cleaning()
+
+- **Complexidade:** O(1)
+- **Descrição:** Retorna `true` se a lista estiver configurada para deletar o array de dados automaticamente. Essa configuração é feita automaticamente ao inicializar a lista, e é desabilitada ao utilizar o método `array_data`. Caso essa configuração se desabilite, é necessário deletar a lista utilizando ```delete [] <ponteiro para o array>```.
+
 ### AdaptArrayList\<T>::get(size_t index)
 
 - **Complexidade:** O(1)
@@ -129,7 +134,7 @@ Durante a execução do programa, é possível alterar o modo da lista criando u
 - **Complexidade:** O(n log n) em média, O(n^2) no pior caso
 - **Descrição:** Ordena a lista usando o algoritmo de quicksort e uma função de comparação personalizada.
 
-### AdaptArrayList\<T>::data()
+### AdaptArrayList\<T>::array_data()
 
 - **Complexidade:** O(length)
 - **Descrição:** Retorna o ponteiro para o array interno. A complexidade é O(length) porque a operação requer a realocação dos elementos para criar um novo array com o início da lista no índice 0.

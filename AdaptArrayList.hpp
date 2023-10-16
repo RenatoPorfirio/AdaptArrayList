@@ -3,7 +3,6 @@
 
 #include <cassert>
 #include <cstdlib>
-//#include <iostream>
 
 // Função de comparação padrão (comparação de menor) para o tipo T
 template <class T>
