@@ -1,6 +1,0 @@
-compile = "g++ -Wall test.cpp -o test"
-
-run = "valgrind -s ./test"
-
-[nix]
-channel = "stable-22_11"
