@@ -1,5 +1,5 @@
 # AdaptArrayList
-Implementação própria de uma lista versátil baseada em Array **(ainda em desenvolvimento)**.
+Implementação de uma lista versátil baseada em Array **(ainda em desenvolvimento)**.
 
 <details><summary><h2>Descrição</h2></summary>
   
