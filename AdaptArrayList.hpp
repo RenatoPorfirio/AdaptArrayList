@@ -3,6 +3,8 @@
 
 #include <cassert>
 #include <cstdlib>
+#include <string>
+using std::string;
 
 // Função de comparação padrão (comparação de menor) para o tipo T
 template <class T>
@@ -81,11 +83,8 @@ public:
   // Executa uma função para cada elemento da lista
   void foreach(void* (*function)(T*));
 
-  // Ordena a lista usando o algoritmo de quicksort e a função de comparação padrão
-  void sort();
-
-  // Ordena a lista usando o algoritmo de quicksort e uma função de comparação personalizada
-  void sort(bool (*cmp)(T, T));
+  // Ordena a lista usando um algoritmo de ordenação e uma função de comparação
+  void sort(string algorithm="quicksort", bool (*cmp)(T, T)=__std_cmp);
 
   // Retorna o ponteiro para o array interno
   T* array_data();
@@ -307,14 +306,8 @@ void AdaptArrayList<T>::__quicksort(size_t i, size_t j, bool (*cmp)(T, T)){
 }
 
 template <class T>
-void AdaptArrayList<T>::sort(){
-  // Ordena a lista usando o algoritmo de quicksort e a função de comparação padrão
-  __quicksort(0, length-1, __std_cmp<T>);
-}
-
-template <class T>
-void AdaptArrayList<T>::sort(bool (*cmp)(T, T)){
-  // Ordena a lista usando o algoritmo de quicksort e uma função de comparação personalizada
+void AdaptArrayList<T>::sort(string algorithm, bool (*cmp)(T, T)){
+  // Ordena a lista usando um algoritmo de ordenação e uma função de comparação
   __quicksort(0, length-1, cmp);
 }
 

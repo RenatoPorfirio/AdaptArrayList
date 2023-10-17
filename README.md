@@ -124,15 +124,10 @@ Durante a execução do programa, é possível alterar o modo da lista criando u
 - **Complexidade:** O(length)
 - **Descrição:** Executa uma função para cada elemento da lista.
 
-### AdaptArrayList\<T>::sort()
+### AdaptArrayList\<T>::sort(string algorithm="quicksort", bool (*cmp)(T, T)=__std_cmp)
 
-- **Complexidade:** O(n log n) em média, O(n^2) no pior caso
-- **Descrição:** Ordena a lista usando o algoritmo de quicksort e a função de comparação padrão.
-
-### AdaptArrayList\<T>::sort(bool (*cmp)(T, T))
-
-- **Complexidade:** O(n log n) em média, O(n^2) no pior caso
-- **Descrição:** Ordena a lista usando o algoritmo de quicksort e uma função de comparação personalizada.
+- **Complexidade:** A mesma do algoritmo de ordenação escolhido.
+- **Descrição:** Ordena a lista usando um algoritmo de ordenação e uma função de comparação. Por padrão, o algoritmo de comparação é o quicksort e a função de comparação é a do maior número, portanto, a chamada da função sem parâmetros resulta num quicksort em ordem crescente.
 
 ### AdaptArrayList\<T>::array_data()
 
