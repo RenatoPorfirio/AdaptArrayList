@@ -128,6 +128,9 @@ Durante a execução do programa, é possível alterar o modo da lista criando u
 
 - **Complexidade:** A mesma do algoritmo de ordenação escolhido.
 - **Descrição:** Ordena a lista usando um algoritmo de ordenação e uma função de comparação. Por padrão, o algoritmo de comparação é o quicksort e a função de comparação é a do maior número, portanto, a chamada da função sem parâmetros resulta num quicksort em ordem crescente.
+- **Algoritmos disponíveis:**
+  - mergesort
+  - quicksort
 
 ### AdaptArrayList\<T>::array_data()
 
