@@ -87,7 +87,7 @@ public:
   void fill(T value, size_t qnt=0);
 
   // Executa uma função para cada elemento da lista
-  void foreach(void* (*function)(T*));
+  void map(void* (*function)(T*));
 
   // Ordena a lista usando um algoritmo de ordenação e uma função de comparação
   void sort(string algorithm="quicksort", bool (*cmp)(T, T)=__std_cmp);

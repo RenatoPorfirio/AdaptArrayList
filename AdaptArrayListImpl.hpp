@@ -179,7 +179,7 @@ void AdaptArrayList<T>::fill(T value, size_t qnt){
 }
 
 template <class T>
-void AdaptArrayList<T>::foreach(void* (*function)(T*)){
+void AdaptArrayList<T>::map(void* (*function)(T*)){
   // Executa uma função para cada elemento da lista
   for(size_t i = 0; i < length; i++){
     function(&arr[(i+start) % max_length]);

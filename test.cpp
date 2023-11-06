@@ -13,7 +13,7 @@ int main() {
   AdaptArrayList<string> l(1, true, 1.5);
   
   cout << "Estado inicial:\n[ ";
-  l.foreach(print);
+  l.map(print);
   cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl << endl;
   
 l.push("melancia")
@@ -23,53 +23,53 @@ l.push("melancia")
   .push("acerola");
   
   cout << "Após 5 itens adicionados:\n[ ";
-  l.foreach(print);
+  l.map(print);
   cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl << endl;
   
   l.pop();
   l.pop();
 
   cout << "Após 2 primeiros itens removidos:\n[ ";
-  l.foreach(print);
+  l.map(print);
   cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl << endl;
 
   l.sort();
 
   cout << "Após ordenar os itens:\n[ ";
-  l.foreach(print);
+  l.map(print);
   cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl << endl;
 
   l.fill("fruta");
 
   cout << "Após preencher com a string \"fruta\":\n[ ";
-  l.foreach(print);
+  l.map(print);
   cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl << endl;
 
   l.remove(3);
 
   cout << "Após remover o terceiro item:\n[ ";
-  l.foreach(print);
+  l.map(print);
   cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl << endl;
   
   l.insert("Amora", 2).insert("mamão", 4);
   
   cout << "Após inserir itens nas posições 2 e 4:\n[ ";
-  l.foreach(print);
+  l.map(print);
   cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl << endl;
 
   AdaptArrayList<string> l2(l.array_data(), l.size(), l.size());
 
   cout << "Nova lista criada com base no vetor de dados da lista anterior:\n[ ";
-  l2.foreach(print);
+  l2.map(print);
   cout << "], tam = " << l2.size() << ", tam. máximo = " << l2.max_size() << endl << endl;
 
   l2.push("acerola");
   cout << "Situação de erro: como o array da primeira lista agora faz parte da segunda lista, o mesmo será deletado com a operação de resize da segunda lista." << endl << endl;
   cout << "Após inserir um novo item no inicio da nova lista:\n Nova lista: [ ";
-  l2.foreach(print);
+  l2.map(print);
   cout << "], tam = " << l2.size() << ", tam. máximo = " << l2.max_size() << endl << endl;
   //cout << "Lista antiga: [ ";
-  //l.foreach(print);
+  //l.map(print);
   //cout << "], tam = " << l.size() << ", tam. máximo = " << l.max_size() << endl;
   
   return 0;

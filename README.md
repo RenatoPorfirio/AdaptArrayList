@@ -119,7 +119,7 @@ Durante a execução do programa, é possível alterar o modo da lista criando u
 - **Complexidade:** O(qnt) amortizado, O(qnt \* length) quando há necessidade de redimensionamento
 - **Descrição:** Preenche a lista com o valor fornecido, opcionalmente aumentando o tamanho. A complexidade é O(qnt) na maioria dos casos, mas pode ser O(qnt * length) quando é necessário redimensionar o array.
 
-### AdaptArrayList\<T>::foreach(void\* (\*function)(T\*))
+### AdaptArrayList\<T>::map(void\* (\*function)(T\*))
 
 - **Complexidade:** O(length)
 - **Descrição:** Executa uma função para cada elemento da lista.
