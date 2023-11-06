@@ -116,15 +116,15 @@ Durante a execução do programa, é possível alterar o modo da lista criando u
 
 ### AdaptArrayList\<T>::fill(T value, size_t qnt)
 
-- **Complexidade:** O(qnt) amortizado, O(qnt * length) quando há necessidade de redimensionamento
+- **Complexidade:** O(qnt) amortizado, O(qnt \* length) quando há necessidade de redimensionamento
 - **Descrição:** Preenche a lista com o valor fornecido, opcionalmente aumentando o tamanho. A complexidade é O(qnt) na maioria dos casos, mas pode ser O(qnt * length) quando é necessário redimensionar o array.
 
-### AdaptArrayList\<T>::foreach(void* (*function)(T*))
+### AdaptArrayList\<T>::foreach(void\* (\*function)(T\*))
 
 - **Complexidade:** O(length)
 - **Descrição:** Executa uma função para cada elemento da lista.
 
-### AdaptArrayList\<T>::sort(string algorithm="quicksort", bool (*cmp)(T, T)=__std_cmp)
+### AdaptArrayList\<T>::sort(string algorithm="quicksort", bool (\*cmp)(T, T)=__std_cmp)
 
 - **Complexidade:** A mesma do algoritmo de ordenação escolhido.
 - **Descrição:** Ordena a lista usando um algoritmo de ordenação e uma função de comparação. Por padrão, o algoritmo de comparação é o quicksort e a função de comparação é a do maior número, portanto, a chamada da função sem parâmetros resulta num quicksort em ordem crescente.
