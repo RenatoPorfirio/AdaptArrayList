@@ -82,7 +82,7 @@ Durante a execução do programa, é possível alterar o modo da lista criando u
 ### bool AdaptArrayList\<T>::self_cleaning()
 
 - **Complexidade:** O(1)
-- **Descrição:** Retorna `true` se a lista estiver configurada para deletar o array de dados automaticamente. Essa configuração é feita automaticamente ao inicializar a lista, e é desabilitada ao utilizar o método `array_data`. Caso essa configuração se desabilite, é necessário deletar a lista utilizando ```delete [] <ponteiro para o array>```.
+- **Descrição:** Retorna `true` se a lista estiver configurada para deletar o array de dados automaticamente. Essa configuração é feita automaticamente ao inicializar a lista, e é desabilitada ao utilizar o método `array_data`. Caso essa configuração se desabilite, é necessário desalocar a memória ocupada pelo array de dados manualmente utilizando ```delete [] <ponteiro para o array>```.
 
 ### AdaptArrayList\<T>::get(size_t index)
 
